@@ -30,12 +30,14 @@ pipeline {
 
     post {
         success {
-            echo "Flyway migration completed successfully for dev environment"
+            echo 'DB migration successful. Triggering Spring Boot pipeline...'
+            build job: 'springBoot-player'
         }
         failure {
             error "Flyway migration failed for dev environment. Pipeline stopped!"
         }
     }
 }
+
 
 
