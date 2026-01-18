@@ -1,9 +1,8 @@
 pipeline {
-  
-    agent { label 'flyway' }
+    agent { label 'flyway' }  
 
     environment {
-        FLYWAY_HOME = "/opt/flyway"  
+        FLYWAY_HOME = "C:\\flyway-11.20.2"  
     }
 
     stages {
@@ -17,11 +16,11 @@ pipeline {
         stage('DB Migration') {
             steps {
                 script {
-                    def confFile = "conf/flyway-dev.conf"  
+                    def confFile = "conf\\flyway-dev.conf"
 
                     withCredentials([usernamePassword(credentialsId: 'flyway-mysql', usernameVariable: 'DB_USER', passwordVariable: 'DB_PASS')]) {
-                        sh """
-                        $FLYWAY_HOME/flyway -configFiles=${confFile} -user=$DB_USER -password=$DB_PASS migrate
+                        bat """
+                        "%FLYWAY_HOME%\\flyway" -configFiles=${confFile} -user=%DB_USER% -password=%DB_PASS% migrate
                         """
                     }
                 }
