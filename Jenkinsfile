@@ -16,7 +16,7 @@ pipeline {
         stage('DB Migration') {
             steps {
                 script {
-                    def confFile = "conf\flyway.conf"
+                    def confFile = "conf/flyway.conf"
 
                     withCredentials([usernamePassword(credentialsId: 'flyway-mysql', usernameVariable: 'DB_USER', passwordVariable: 'DB_PASS')]) {
                         bat """
@@ -37,4 +37,5 @@ pipeline {
         }
     }
 }
+
 
